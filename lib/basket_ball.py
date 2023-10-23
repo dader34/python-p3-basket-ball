@@ -182,3 +182,74 @@ def game_dict():
             ]
         }
     }
+
+def num_points_per_game(name):
+    for team in game_dict():
+        for attr in game_dict()[team]:
+            if(attr == "players"):
+                for player in game_dict()[team][attr]:
+                    if(player['name'] == name):
+                     return(player['points_per_game'])
+    return False
+
+def player_age(name):
+    for team in game_dict():
+        for attr in game_dict()[team]:
+            if(attr == "players"):
+                for player in game_dict()[team][attr]:
+                    if(player['name'] == name):
+                     return(player['age'])
+                    
+    return False
+
+def team_colors(teamname):
+    for team in game_dict():
+        if(game_dict()[team]['team_name'] == teamname):
+            return game_dict()[team]['colors']
+    return False
+
+def team_names():
+    names = []
+    for team in game_dict():
+        names.append(game_dict()[team]['team_name'])
+    return names
+
+def player_numbers(teamname):
+    all_nums = []
+    for team in game_dict():
+        if(game_dict()[team]['team_name'] == teamname):
+            for player in game_dict()[team]['players']:
+                all_nums.append(player['number'])
+    return all_nums
+
+def player_stats(name):
+    for team in game_dict():
+        for player in game_dict()[team]['players']:
+            if(player['name'] == name):
+                return player
+    return False
+
+def average_rebounds_by_shoe_brand():
+    shoe_brands = [{'Nike':[]},{'Adidas':[]},{'Puma':[]},{'Jordan':[]}]
+    for team in game_dict():
+        for player in game_dict()[team]['players']:
+            for arr in shoe_brands:
+                for brand in arr:
+                    if(player['shoe_brand'] == brand):
+                        arr[brand].append(player['rebounds_per_game'])
+    for arr in shoe_brands:
+        for brand in arr:
+            avg = sum(arr[brand])/len(arr[brand])
+            print(f'{brand}:  {avg:.2f}')
+    # return shoe_brands
+                # if(player['shoe_brand'] == brand)
+
+average_rebounds_by_shoe_brand()
+
+
+# print(player_stats("Davis Bertans"))
+# print(player_numbers("Washington Wizards"))
+# print(team_names())
+# print(team_colors("Washington Wizards"))
+# print(num_points_per_game("Davis Bertans"))
+# print(player_age("Davis Bertans"))
